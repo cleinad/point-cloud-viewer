@@ -37,6 +37,7 @@ bool PointCloud::loadFromFile(const std::string& filename) { // ensure that it i
         // crucial for load handling and not overloading the CPU/GPU
         if (num_points_read % 100 == 0) {
             points_.push_back(p); // add it to the end of the private vector
+            std::cout << "point added" << std::endl; // debug statement
         }
         num_points_read++;
     }

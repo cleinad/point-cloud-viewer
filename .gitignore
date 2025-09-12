@@ -1,0 +1,22 @@
+# Build artifacts
+*.o
+*.out
+*.exe
+*.log
+
+# Auto-generated files
+*.d
+*.dep
+*.pch
+
+# Build directories
+/build/
+/bin/
+/dist/
+
+# IDE and OS clutter
+*.swp
+*.swo
+*.DS_Store
+.vscode/
+.idea/

@@ -10,9 +10,9 @@ int main(int argc, char** argv) {
     PointCloud cloud; // create an instance
 
     if (cloud.loadFromFile("../data/bildstein_station1_sample1.txt")) {
-        std::cout << "Successfully loaded point cloud from file." << std::endl;
+        std::cout << "Successfully loaded point cloud from file" << std::endl;
     } else {
-        std::cerr << "Failed to load point cloud." << std::endl;
+        std::cerr << "Failed to load point cloud data" << std::endl;
         return 1;
     }
 
