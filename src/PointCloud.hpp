@@ -1,4 +1,4 @@
-#ifndef POINTCLOUD_HPP
+#ifndef POINTCLOUD_HPP // this is a header guard, only needed in header files
 #define POINTCLOUD_HPP
 
 #include <cstdint> // for the 8 bit typedef
@@ -16,6 +16,23 @@ struct Point {
 
 class PointCloud {
     public:
-    // a constructor
+    // constructor
     PointCloud()
-}
+
+    // Method to load data from a file
+    // return boolean indicating success or failure
+    bool loadFromFile(const std::string& filename);
+        // const promises the function won't change the file
+        // & is faster since no memory duplication (pass by reference)
+    
+    // Method to get a reference to the points vector
+    // returns a reference to a vector of Points
+    const std::vector<Point>& getPoints() const; 
+    // 2nd const says it will not modify the object it's called on
+    // so you can call it on a const object. Otherwise you can't
+
+    private:
+        std::vector<Point> points_; // Stores the collection of points.
+};
+
+#endif // POINTCLOUD_HPP
