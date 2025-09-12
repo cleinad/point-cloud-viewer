@@ -12,20 +12,20 @@ struct Point {
     uint8_t r, g, b; // uint8_t is from 0 to 255
     // r = 255 indicates full red
     // uint8_t = unsigned char but clearer
-}
+};
 
 class PointCloud {
     public:
     // constructor
-    PointCloud()
+    PointCloud();
 
     // Method to load data from a file
     // return boolean indicating success or failure
     bool loadFromFile(const std::string& filename);
         // const promises the function won't change the file
         // & is faster since no memory duplication (pass by reference)
-    
-    // Method to get a reference to the points vector
+
+        // Method to get a reference to the points vector
     // returns a reference to a vector of Points
     const std::vector<Point>& getPoints() const; 
     // 2nd const says it will not modify the object it's called on
