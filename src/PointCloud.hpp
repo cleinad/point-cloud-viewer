@@ -26,10 +26,12 @@ class PointCloud {
         // & is faster since no memory duplication (pass by reference)
 
         // Method to get a reference to the points vector
-    // returns a reference to a vector of Points
+    // returns a constant reference to a vector of Points
     const std::vector<Point>& getPoints() const; 
     // 2nd const says it will not modify the object it's called on
     // so you can call it on a const object. Otherwise you can't
+
+    void modulateColours();
 
     private:
         std::vector<Point> points_; // Stores the collection of points.
