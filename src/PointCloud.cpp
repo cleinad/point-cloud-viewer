@@ -43,14 +43,14 @@ bool PointCloud::loadFromFile(const std::string& filename) { // ensure that it i
 
         // Implement downsampling: load every 100th point.
         // crucial for load handling and not overloading the CPU/GPU
-        if (num_points_read % 100 == 0) {
+        if (num_points_read % 50 == 0) {
             points_.push_back(p); // add it to the end of the private vector
             // std::cout << "point added" << std::endl; // debug statement
         }
         num_points_read++;
     }
 
-    std::cout << "Successfully loaded " << points_.size() << " points" << std::endl;
+    // std::cout << "Successfully loaded " << points_.size() << " points" << std::endl;
     return true; // indicates success
 }
 
@@ -60,6 +60,7 @@ void PointCloud::modulateColours() {
     uint8_t min_g = 255, max_g = 0;
     uint8_t min_b = 255, max_b = 0;
 
+    // Find the actual min and max values for each colour channel
     for (const auto& p : points_) {
         min_r = std::min(min_r, p.r);
         max_r = std::max(max_r, p.r);
@@ -72,6 +73,10 @@ void PointCloud::modulateColours() {
     }
     
     // increase intensity by stretching colours
+    // rescales every point's colour so that
+    // - lowest value is 0
+    // - highest value is 255
+    // everything in between is stretched proportionally
     for (auto& p : points_) {
         if (max_r > min_r) p.r = static_cast<uint8_t>(255.0 * (p.r - min_r) / (max_r - min_r));
         if (max_g > min_g) p.g = static_cast<uint8_t>(255.0 * (p.g - min_g) / (max_g - min_g));
