@@ -24,6 +24,10 @@ class PointCloud {
     bool loadFromFile(const std::string& filename);
         // const promises the function won't change the file
         // & is faster since no memory duplication (pass by reference)
+    
+    // Method to load data from a file with intensity
+    // return boolean indicating success or failure
+    bool loadFromFileIntensity(const std::string& filename);
 
         // Method to get a reference to the points vector
     // returns a constant reference to a vector of Points

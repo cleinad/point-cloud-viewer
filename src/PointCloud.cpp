@@ -20,7 +20,43 @@ const std::vector<Point>& PointCloud::getPoints() const {
     return points_;
 }
 
-bool PointCloud::loadFromFile(const std::string& filename) { // ensure that it is a member function
+// for file format: x y z r g b
+bool PointCloud::loadFromFile(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error: Could not open file " << filename << std::endl;
+        return false;
+    }
+
+    std::string line;
+    int num_points_read = 0; // 0 points read so far
+    while (std::getline(file, line)) {
+        std::stringstream ss(line);
+        Point p;
+        int r_int, g_int, b_int;
+
+        // Parse the values from the line based on your dataset format:
+        // x y z r g b
+        ss >> p.x >> p.y >> p.z >> r_int >> g_int >> b_int;
+        p.r = r_int;
+        p.g = g_int;
+        p.b = b_int;
+
+        // Implement downsampling: load every 100th point.
+        // crucial for load handling and not overloading the CPU/GPU
+        if (num_points_read % 50 == 0) {
+            points_.push_back(p); // add it to the end of the private vector
+            // std::cout << "point added" << std::endl; // debug statement
+        }
+        num_points_read++;
+    }
+
+    // std::cout << "Successfully loaded " << points_.size() << " points" << std::endl;
+    return true; // indicates success
+}
+
+// for file format: x y z intensity r g b
+bool PointCloud::loadFromFileIntensity(const std::string& filename) { // ensure that it is a member function
     std::ifstream file(filename); // read from file
     if (!file.is_open()) {
         std::cerr << "Error: Could not open file " << filename << std::endl;
